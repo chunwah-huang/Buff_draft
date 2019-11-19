@@ -46,7 +46,7 @@ int main()
     cout<<CameraGetAeState(hCamera,&AEstate);
     cout<<CameraSetAeState(hCamera,FALSE);
 
-    CameraSetExposureTime(hCamera,33000);
+    CameraSetExposureTime(hCamera,28000);
     /*让SDK进入工作模式，开始接收来自相机发送的图像数据。
      *如果当前相机是触发模式，则需要接收到触发帧以后才会更新图像*/
     CameraPlay(hCamera);
