@@ -81,12 +81,14 @@ int main()
             iplImage = cvCreateImageHeader(cvSize(sFrameInfo.iWidth,sFrameInfo.iHeight),IPL_DEPTH_8U,channel);
             cvSetData(iplImage,g_pRgbBuffer,sFrameInfo.iWidth*channel);//此处只是设置指针，无图像块数据拷贝，不需担心转换效率
 
+            double t = getTickCount();
             //Mat Iimag(iplImage);//这里只是进行指针转换，将IplImage转换成Mat类型
             Mat src_img = cvarrToMat(iplImage,true);
             resize(src_img, src_img, Size(640, 480));
             RM_dist.run_Main(src_img);
-            //imshow("src", src_img);
-
+            t = ((double)getTickCount() - t) / getTickFrequency();
+            double fps = 1.0 / t;
+            cout << "fps:" << fps << endl;
             //在成功调用CameraGetImageBuffer后，必须调用CameraReleaseImageBuffer来释放获得的buffer。
             //否则再次调用CameraGetImageBuffer时，程序将被挂起一直阻塞，直到其他线程中调用CameraReleaseImageBuffer来释放了buffer
             CameraReleaseImageBuffer(hCamera,pbyBuffer);
